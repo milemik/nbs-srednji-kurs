@@ -3,6 +3,7 @@ import argparse
 from nbs_kurs.data_helper import get_value_by_currency
 from nbs_kurs.date_helper import current_date
 from nbs_kurs.get_values_from_nbs import get_all_currency_values
+from nbs_kurs.presentation_helper import print_results
 
 parser = argparse.ArgumentParser(
     description="My Package - A simple Python package",
@@ -27,4 +28,4 @@ def main():
     all_values = get_all_currency_values(request_date=selected_date)
     if currency != "all":
         all_values = get_value_by_currency(short_name=currency, data=all_values)
-    print(all_values)
+    print_results(all_values)
