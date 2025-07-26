@@ -1,9 +1,13 @@
 [project]
 name = "nbs-srednji-kurs"
 version = "0.1.0"
-description = "Add your description here"
+description = "Get average currency values for Serbia"
 readme = "README.md"
 requires-python = ">=3.12"
+authors = [
+    { name = "Ivan Miletic", email="milemik68@gmail.com" }
+]
+
 dependencies = [
     "beautifulsoup4>=4.13.4",
     "requests>=2.32.4",
