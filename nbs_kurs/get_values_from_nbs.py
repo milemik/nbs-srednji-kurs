@@ -54,8 +54,3 @@ def get_all_currency_values(request_date: str) -> list[ValueData]:
     nbs_url = generate_url(request_date=request_date)
     html_content = get_html(request_url=nbs_url)
     return get_values_from_nbs(page_content=html_content)
-
-
-if __name__ == "__main__":
-    data = get_all_currency_values(request_date="26.07.2025")
-    print(data)
