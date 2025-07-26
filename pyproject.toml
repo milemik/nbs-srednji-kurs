@@ -1,6 +1,6 @@
 [project]
 name = "nbs-srednji-kurs"
-version = "0.1.0"
+version = "1.0.4"
 description = "Get average currency values for Serbia"
 readme = "README.md"
 requires-python = ">=3.12"
