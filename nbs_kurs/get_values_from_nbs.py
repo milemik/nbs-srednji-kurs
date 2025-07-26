@@ -19,16 +19,14 @@ class ValueData:
     value: Decimal
 
 
-
 def generate_url(request_date: str, list_type: int = LIST_TYPE) -> str:
-    return BASE_URL + URL_QUERY.format(
-        request_date=request_date,
-        list_type=list_type
-    )
+    return BASE_URL + URL_QUERY.format(request_date=request_date, list_type=list_type)
+
 
 def get_html(request_url: str) -> str:
     response = requests.get(request_url)
     return response.content
+
 
 def get_values_from_nbs(page_content: str) -> list[ValueData]:
     result = list()
@@ -39,14 +37,24 @@ def get_values_from_nbs(page_content: str) -> list[ValueData]:
         if len(cells) != 5:
             continue
         value = cells[4].text.replace(",", ".")
-        result.append(ValueData(short_name=cells[0].text, value_key=int(cells[1].text), country=cells[2].text, valid_for=int(cells[3].text), value=Decimal(value)))
+        result.append(
+            ValueData(
+                short_name=cells[0].text,
+                value_key=int(cells[1].text),
+                country=cells[2].text,
+                valid_for=int(cells[3].text),
+                value=Decimal(value),
+            )
+        )
 
     return result
+
 
 def get_all_currency_values(request_date: str) -> list[ValueData]:
     nbs_url = generate_url(request_date=request_date)
     html_content = get_html(request_url=nbs_url)
     return get_values_from_nbs(page_content=html_content)
+
 
 if __name__ == "__main__":
     data = get_all_currency_values(request_date="26.07.2025")

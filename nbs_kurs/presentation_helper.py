@@ -4,6 +4,7 @@ from nbs_kurs.get_values_from_nbs import ValueData
 def _print_line() -> None:
     print("--------------------------------------------------")
 
+
 def print_results(value_data: list[ValueData]) -> None:
     for value in value_data:
         _print_line()
