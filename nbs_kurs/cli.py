@@ -14,11 +14,10 @@ parser.add_argument("--currency", help="Kurs za koji zelite da vidite vrednost",
 
 
 def main():
-    print("Hello from nbs-kurs!")
     parse_args = parser.parse_args()
     selected_date = parse_args.date
     currency = parse_args.currency.split(",")
     all_values = get_all_currency_values(request_date=selected_date)
-    if currency:
+    if "all" not in currency:
         all_values = get_value_by_currency(short_names=currency, data=all_values)
     print_results(all_values)
