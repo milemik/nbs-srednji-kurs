@@ -1,5 +1,4 @@
 from decimal import Decimal
-from idlelib.rpc import request_queue
 from unittest.mock import patch, MagicMock
 
 from nbs_kurs.get_values_from_nbs import generate_url, get_html, get_values_from_nbs, ValueData, get_all_currency_values
@@ -14,10 +13,10 @@ def test_init():
 
 
 def test_get_html():
-    requestMock = MagicMock()
-    getMock = requestMock.get()
-    getMock.content = "<h1>test</h1>"
-    with patch("nbs_kurs.get_values_from_nbs.requests", requestMock) as moc_request:
+    request_mock = MagicMock()
+    get_mock = request_mock.get()
+    get_mock.content = "<h1>test</h1>"
+    with patch("nbs_kurs.get_values_from_nbs.requests", request_mock):
         result = get_html(request_url="https://dontexist.com")
     assert result == "<h1>test</h1>"
 
@@ -42,8 +41,8 @@ def test_get_values_from_nbs():
 
 
 def test_get_all_currency_values():
-    requestMock = MagicMock()
-    requestMock.get().content = """
+    request_mock = MagicMock()
+    request_mock.get().content = b"""
     <tr>
     <td>USD</td>
     <td>1</td>
@@ -59,7 +58,7 @@ def test_get_all_currency_values():
     <td>110,23</td>
     </tr>
     """
-    with patch("nbs_kurs.get_values_from_nbs.requests", requestMock) as moc_request:
+    with patch("nbs_kurs.get_values_from_nbs.requests", request_mock):
         res = get_all_currency_values(request_date="1.2.3")
     assert res == [
         ValueData(short_name="USD", value_key=1, country="Russia", valid_for=1, value=Decimal("1.23")),
